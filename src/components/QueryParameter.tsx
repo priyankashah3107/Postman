@@ -40,6 +40,8 @@
 // };
 
 // export default QueryParameter;
+
+
 import React, { useState } from "react";
 
 interface Row {
@@ -81,6 +83,9 @@ const QueryParameter: React.FC = () => {
 
   return (
     <div className="p-4">
+      <p className="text-[#9ca3af] font-semibold truncate lg:mb-7">
+        Query Parameters
+      </p>
       <table className="w-full border-collapse border">
         <thead>
           <tr className="">
@@ -105,7 +110,7 @@ const QueryParameter: React.FC = () => {
               </td>
               <td className="border p-2">
                 <textarea
-                  className="w-full p-1 border rounded"
+                  className="w-full p-1 border rounded "
                   placeholder="Key"
                   value={row.key}
                   onChange={(e) =>

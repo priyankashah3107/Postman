@@ -29,7 +29,7 @@ export default function Home() {
             <DropdownMenu>
               {/* <DropdownMenuTrigger>GET</DropdownMenuTrigger> */}
               <DropdownMenuTrigger>{method}</DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-[#431774] p-6 ml-32 mt-8 rounded-md">
+              <DropdownMenuContent className="bg-[#431774] p-6 ml-32 mt-8 rounded-md gap-2 cursor-pointer ">
                 <DropdownMenuSeparator />
 
                 <DropdownMenuItem onClick={() => handleSelectMethod("POST")}>
@@ -56,7 +56,11 @@ export default function Home() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Input type="text" placeholder="Enter Url or Paste the text" />
+            <Input
+              required
+              type="url"
+              placeholder="Enter Url or Paste the text"
+            />
 
             <Button variant="secondary" size="lg">
               Send
