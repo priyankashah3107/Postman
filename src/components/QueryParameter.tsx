@@ -41,8 +41,8 @@
 
 // export default QueryParameter;
 
-
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { useDataContext } from "context/DataProvider";
 
 interface Row {
   key: string;
@@ -52,10 +52,12 @@ interface Row {
 }
 
 const QueryParameter: React.FC = () => {
+  const {paramData, setParamData} = useDataContext()
   const [rows, setRows] = useState<Row[]>([
     { key: "", value: "", description: "", enabled: true },
   ]);
 
+  console.log("Rows", rows);
   const handleAddRow = () => {
     setRows([...rows, { key: "", value: "", description: "", enabled: true }]);
   };
@@ -81,12 +83,14 @@ const QueryParameter: React.FC = () => {
     setRows(newRows);
   };
 
+
+
   return (
-    <div className="p-4">
+    <div className="p-4 ">
       <p className="text-[#9ca3af] font-semibold truncate lg:mb-7">
         Query Parameters
       </p>
-      <table className="w-full border-collapse border">
+      <table className="w-full border-collapse border ">
         <thead>
           <tr className="">
             <th className="border p-2">Enable</th>

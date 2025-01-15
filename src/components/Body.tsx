@@ -3,8 +3,8 @@ import React from "react";
 const Body: React.FC = () => {
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const textarea = e.target;
-    textarea.style.height = "auto"; // Reset height to recalculate
-    textarea.style.height = `${textarea.scrollHeight}px`; // Set new height
+    // textarea.style.height = "auto";
+    // textarea.style.height = `${textarea.scrollHeight}px`;
   };
 
   return (
@@ -23,10 +23,10 @@ const Body: React.FC = () => {
         </div>
 
         {/* Dynamic Textarea Section */}
-        <div className="border">
+        <div className="border ">
           <textarea
             placeholder="Enter JSON Data"
-            className=" h-auto w-full text-black p-4 border border-gray-300 rounded-md"
+            className=" w-full text-black p-4 border border-gray-300 rounded-md lg:h-56"
             rows={1} // Number value for rows
             onInput={handleInput} // Dynamic resizing handler
           />

@@ -1,17 +1,3 @@
-// import React from "react";
-
-// const Headers = () => {
-//   return (
-//     <>
-//      <div>
-
-//      </div>
-//     </>
-//   )
-// };
-
-// export default Headers;
-
 import React, { useState } from "react";
 
 interface Row {
