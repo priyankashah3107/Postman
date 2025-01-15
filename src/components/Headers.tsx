@@ -1,24 +1,32 @@
+"use client";
 import React, { useState } from "react";
-
-interface Row {
-  key: string;
-  value: string;
-  description: string;
-  enabled: boolean;
-}
+import { useDataContext } from "context/DataProvider";
+// interface Row {
+//   key: string;
+//   value: string;
+//   description: string;
+//   enabled: boolean;
+// }
 
 const Headers: React.FC = () => {
-  const [rows, setRows] = useState<Row[]>([
-    { key: "", value: "", description: "", enabled: true },
-  ]);
+  const { headerData, setHeaderData } = useDataContext();
+  // const [rows, setRows] = useState<Row[]>([
+  //   { key: "", value: "", description: "", enabled: true },
+  // ]);
 
   const handleAddRow = () => {
-    setRows([...rows, { key: "", value: "", description: "", enabled: true }]);
+    setHeaderData([
+      ...headerData,
+      { key: "", value: "", description: "", enabled: true },
+    ]);
   };
 
+  console.log("HeadersData", headerData);
+
   const handleRemoveRow = (index: number) => {
-    const newRows = rows.filter((_, i) => i !== index);
-    setRows(newRows);
+    // const newRows = rows.filter((_, i) => i !== index);
+    // setRows(newRows);
+    setHeaderData(headerData.filter((_, i) => i !== index));
   };
 
   const handleInputChange = (
@@ -26,15 +34,15 @@ const Headers: React.FC = () => {
     field: "key" | "value" | "description", // Explicitly specify valid keys
     value: string
   ) => {
-    const newRows = [...rows];
+    const newRows = [...headerData];
     newRows[index][field] = value;
-    setRows(newRows);
+    setHeaderData(newRows);
   };
 
   const handleCheckboxChange = (index: number, checked: boolean) => {
-    const newRows = [...rows];
+    const newRows = [...headerData];
     newRows[index].enabled = checked;
-    setRows(newRows);
+    setHeaderData(newRows);
   };
 
   return (
@@ -53,7 +61,7 @@ const Headers: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {rows.map((row, index) => (
+          {headerData.map((row, index) => (
             <tr key={index} className="text-black">
               <td className="border p-2">
                 <input

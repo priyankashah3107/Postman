@@ -90,6 +90,8 @@
 //   );
 // };
 
+"use client";
+
 import React, { JSX, useState } from "react";
 const Authorization = () => {
   const [selectedComponent, setSelectedComponent] =

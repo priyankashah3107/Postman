@@ -15,14 +15,33 @@ import {
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import { useState } from "react";
+import { useDataContext } from "context/DataProvider";
+import checkParams from "utils/checkParams";
+import toast from "react-hot-toast";
 // import Image from "next/image";
 
 export default function Home() {
   const [method, setMethod] = useState("GET");
+  const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleSelectMethod = (selectMethod: any) => {
     setMethod(selectMethod);
   };
+
+  const { formData, jsonText, paramData, headerData } = useDataContext();
+
+  const onSendClick = () => {
+    // alert("Love you universe");
+    setError(false);
+    if (!checkParams(formData, jsonText, paramData, headerData, setErrorMsg)) {
+      toast.error(errorMsg || "An error occurred");
+      setError(true);
+      return;
+    }
+    console.log("Sending request with data:", { formData, jsonText });
+  };
+
   return (
     <>
       <div className="bg-gradient-to-tr from-[#63298d] via-[#181f47] to-[#480776] min-h-screen w-screen h-full  text-white  relative ">
@@ -70,13 +89,14 @@ export default function Home() {
             </Button>
           </form> */}
 
-          <Form />
+          <Form onSendClick={onSendClick} />
+          <RequestCollection />
+          <Response />
+          <ErrorScreen />
+          
+          {errorMsg && <p className="text-red-500 mt-4">{errorMsg}</p>}
 
-          <div>
-            <RequestCollection />
-            <Response />
-            <ErrorScreen />
-          </div>
+          {/* {error && errorMsg && toast.error(errorMsg)} */}
         </div>
       </div>
     </>

@@ -40,31 +40,40 @@
 // };
 
 // export default QueryParameter;
-
+"use client";
 import React, { useState, useContext } from "react";
 import { useDataContext } from "context/DataProvider";
 
-interface Row {
-  key: string;
-  value: string;
-  description: string;
-  enabled: boolean;
-}
+// interface Row {
+//   key: string;
+//   value: string;
+//   description: string;
+//   enabled: boolean;
+// }
 
 const QueryParameter: React.FC = () => {
-  const {paramData, setParamData} = useDataContext()
-  const [rows, setRows] = useState<Row[]>([
-    { key: "", value: "", description: "", enabled: true },
-  ]);
+  const { paramData, setParamData } = useDataContext();
 
-  console.log("Rows", rows);
+  // const [rows, setRows] = useState<Row[]>([
+  //   { key: "", value: "", description: "", enabled: true },
+  // ]);
+
+  // console.log("Rows", rows);
+
   const handleAddRow = () => {
-    setRows([...rows, { key: "", value: "", description: "", enabled: true }]);
+    // setRows([...rows, { key: "", value: "", description: "", enabled: true }]);
+    setParamData([
+      ...paramData,
+      { key: "", value: "", description: "", enabled: true },
+    ]);
   };
 
+  console.log("ParamsData", paramData);
+
   const handleRemoveRow = (index: number) => {
-    const newRows = rows.filter((_, i) => i !== index);
-    setRows(newRows);
+    // const newRows = rows.filter((_, i) => i !== index);
+    // setRows(newRows);
+    setParamData(paramData.filter((_, i) => i !== index));
   };
 
   const handleInputChange = (
@@ -72,18 +81,16 @@ const QueryParameter: React.FC = () => {
     field: "key" | "value" | "description", // Explicitly specify valid keys
     value: string
   ) => {
-    const newRows = [...rows];
+    const newRows = [...paramData];
     newRows[index][field] = value;
-    setRows(newRows);
+    setParamData(newRows);
   };
 
   const handleCheckboxChange = (index: number, checked: boolean) => {
-    const newRows = [...rows];
+    const newRows = [...paramData];
     newRows[index].enabled = checked;
-    setRows(newRows);
+    setParamData(newRows);
   };
-
-
 
   return (
     <div className="p-4 ">
@@ -101,7 +108,7 @@ const QueryParameter: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {rows.map((row, index) => (
+          {paramData.map((row, index) => (
             <tr key={index} className="text-black">
               <td className="border p-2">
                 <input

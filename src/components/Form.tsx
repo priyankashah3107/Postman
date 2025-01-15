@@ -64,7 +64,6 @@
 
 // export default Form;
 
-// Form.tsx
 "use client";
 import {
   DropdownMenu,
@@ -78,6 +77,10 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { useDataContext } from "context/DataProvider";
 
+interface FormProps {
+  onSendClick: () => void;
+}
+
 type HttpMethod =
   | "GET"
   | "POST"
@@ -87,7 +90,7 @@ type HttpMethod =
   | "HEAD"
   | "OPTIONS";
 
-const Form: React.FC = () => {
+const Form: React.FC<FormProps> = ({ onSendClick }) => {
   const { formData, setFormData } = useDataContext();
 
   console.log(formData);
@@ -102,6 +105,7 @@ const Form: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    onSendClick();
     // Handle form submission here
   };
 
@@ -137,7 +141,12 @@ const Form: React.FC = () => {
         onChange={handleUrlChange}
       />
 
-      <Button type="submit" variant="secondary" size="lg">
+      <Button
+        type="submit"
+        variant="secondary"
+        size="lg"
+        onClick={() => onSendClick()}
+      >
         Send
       </Button>
     </form>

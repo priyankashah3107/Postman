@@ -7,13 +7,21 @@ interface FormData {
 }
 
 interface ParamData {
+  // key: string;
+  // value: string;
   key: string;
   value: string;
+  description: string;
+  enabled: boolean;
 }
 
 interface HeaderData {
-  headerName: string;
-  headerValue: string;
+  // headerName: string;
+  // headerValue: string;
+  key: string;
+  value: string;
+  description: string;
+  enabled: boolean;
 }
 
 interface DataContextType {
@@ -23,6 +31,8 @@ interface DataContextType {
   setParamData: React.Dispatch<React.SetStateAction<ParamData[]>>;
   headerData: HeaderData[];
   setHeaderData: React.Dispatch<React.SetStateAction<HeaderData[]>>;
+  jsonText: string;
+  setJsonText: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface DataProviderProps {
@@ -37,6 +47,8 @@ export const DataContext = createContext<DataContextType>({
   setParamData: () => {},
   headerData: [],
   setHeaderData: () => {},
+  jsonText: "",
+  setJsonText: () => {},
 });
 
 // Custom hook for using the context
@@ -52,6 +64,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const [formData, setFormData] = useState<FormData>({ url: "", type: "POST" });
   const [paramData, setParamData] = useState<ParamData[]>([]);
   const [headerData, setHeaderData] = useState<HeaderData[]>([]);
+  const [jsonText, setJsonText] = useState("");
 
   return (
     <DataContext.Provider
@@ -62,6 +75,8 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
         setParamData,
         headerData,
         setHeaderData,
+        jsonText,
+        setJsonText,
       }}
     >
       {children}
