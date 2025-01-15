@@ -1,0 +1,4 @@
+Set the token in your application so that, just like Postman, it can store the token and provide you with the facility to:
+
+Validate authorization
+Perform mutations

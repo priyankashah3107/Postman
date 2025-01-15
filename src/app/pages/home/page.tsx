@@ -18,12 +18,14 @@ import { useState } from "react";
 import { useDataContext } from "context/DataProvider";
 import checkParams from "utils/checkParams";
 import toast from "react-hot-toast";
+import { APIResponse, sendRequest } from "service/api";
 // import Image from "next/image";
 
 export default function Home() {
   const [method, setMethod] = useState("GET");
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [apiResponse, setApiResponse] = useState<APIResponse | null>(null);
 
   const handleSelectMethod = (selectMethod: any) => {
     setMethod(selectMethod);
@@ -31,15 +33,48 @@ export default function Home() {
 
   const { formData, jsonText, paramData, headerData } = useDataContext();
 
-  const onSendClick = () => {
-    // alert("Love you universe");
+  // const onSendClick = () => {
+  //   // alert("Love you universe");
+  //   setError(false);
+  //   if (!checkParams(formData, jsonText, paramData, headerData, setErrorMsg)) {
+  //     toast.error(errorMsg || "An error occurred");
+  //     setError(true);
+  //     return;
+  //   }
+  //   console.log("Sending request with data:", { formData, jsonText });
+  // };
+
+  const onSendClick = async () => {
     setError(false);
+
     if (!checkParams(formData, jsonText, paramData, headerData, setErrorMsg)) {
       toast.error(errorMsg || "An error occurred");
       setError(true);
       return;
     }
-    console.log("Sending request with data:", { formData, jsonText });
+
+    try {
+      const response = await sendRequest(
+        formData.url,
+        formData.type,
+        paramData,
+        headerData,
+        jsonText
+      );
+
+      // You can add a state for the response and set it here
+      setApiResponse(response);
+
+      if (response.error) {
+        toast.error(response.error);
+      } else {
+        toast.success(`Request completed in ${response.duration}ms`);
+      }
+    } catch (error) {
+      console.log("err", error);
+      toast.error("Failed to send request");
+      setError(true);
+    }
   };
 
   return (
@@ -93,7 +128,7 @@ export default function Home() {
           <RequestCollection />
           <Response />
           <ErrorScreen />
-          
+
           {errorMsg && <p className="text-red-500 mt-4">{errorMsg}</p>}
 
           {/* {error && errorMsg && toast.error(errorMsg)} */}
