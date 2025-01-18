@@ -90,7 +90,7 @@ type HttpMethod =
   | "HEAD"
   | "OPTIONS";
 
-const Form: React.FC<FormProps> = ({ onSendClick}) => {
+const Form: React.FC<FormProps> = ({ onSendClick }) => {
   const { formData, setFormData } = useDataContext();
 
   console.log(formData);

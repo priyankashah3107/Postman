@@ -6,6 +6,13 @@ interface FormData {
   type: string;
 }
 
+interface Cookie {
+  name: string;
+  value: string;
+  domain: string;
+  path: string;
+}
+
 interface ParamData {
   // key: string;
   // value: string;
@@ -33,6 +40,8 @@ interface DataContextType {
   setHeaderData: React.Dispatch<React.SetStateAction<HeaderData[]>>;
   jsonText: string;
   setJsonText: React.Dispatch<React.SetStateAction<string>>;
+  cookies: Cookie[];
+  setCookies: React.Dispatch<React.SetStateAction<Cookie[]>>;
 }
 
 interface DataProviderProps {
@@ -49,6 +58,8 @@ export const DataContext = createContext<DataContextType>({
   setHeaderData: () => {},
   jsonText: "",
   setJsonText: () => {},
+  cookies: [],
+  setCookies: () => {},
 });
 
 // Custom hook for using the context
@@ -65,6 +76,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const [paramData, setParamData] = useState<ParamData[]>([]);
   const [headerData, setHeaderData] = useState<HeaderData[]>([]);
   const [jsonText, setJsonText] = useState("");
+  const [cookies, setCookies] = useState<Cookie[]>([]);
 
   return (
     <DataContext.Provider
@@ -77,6 +89,8 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
         setHeaderData,
         jsonText,
         setJsonText,
+        cookies,
+        setCookies,
       }}
     >
       {children}
