@@ -2,3 +2,5 @@ Set the token in your application so that, just like Postman, it can store the t
 
 Validate authorization
 Perform mutations
+make a reposse page so user can see their repsonses 
+make a proper error page 

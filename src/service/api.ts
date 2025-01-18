@@ -136,7 +136,6 @@
 //   }
 // };
 
-// service/api.ts
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { toast } from "react-hot-toast";
 
@@ -210,13 +209,18 @@ export const sendRequest = async (
       throw new Error("URL is required");
     }
 
+    // const controller = new AbortController();
+    // const signal = controller.signal;
+
     // Prepare request configuration
     const config: AxiosRequestConfig = {
       url,
       method: method.toLowerCase(),
       params: formatParams(params),
+      // signal,
       // headers: formatHeaders(headers),
       validateStatus: () => true, // Handle all status codes
+      // timeout: 30000,
     };
 
     // Handle request body based on method

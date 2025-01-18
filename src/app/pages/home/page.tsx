@@ -25,6 +25,8 @@ export default function Home() {
   const [method, setMethod] = useState("GET");
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [errorResponse, setErrorResponse] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const [apiResponse, setApiResponse] = useState<APIResponse | null>(null);
 
   const handleSelectMethod = (selectMethod: any) => {
@@ -44,8 +46,14 @@ export default function Home() {
   //   console.log("Sending request with data:", { formData, jsonText });
   // };
 
+  const onSubmit = (e: any) => {
+    e.preventDefault();
+  };
+
   const onSendClick = async () => {
+    if (isLoading) return;
     setError(false);
+    setLoading(true);
 
     if (!checkParams(formData, jsonText, paramData, headerData, setErrorMsg)) {
       toast.error(errorMsg || "An error occurred");
@@ -63,7 +71,9 @@ export default function Home() {
       );
 
       // You can add a state for the response and set it here
-      setApiResponse(response);
+      // setApiResponse(response);
+      setApiResponse(response.data);
+      console.log("abc", response.data);
 
       if (response.error) {
         toast.error(response.error);
@@ -74,14 +84,16 @@ export default function Home() {
       console.log("err", error);
       toast.error("Failed to send request");
       setError(true);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <>
-      <div className="bg-gradient-to-tr from-[#63298d] via-[#181f47] to-[#480776] min-h-screen w-screen h-full  text-white  relative ">
+      <div className="bg-gradient-to-tr from-[#63298d] via-[#181f47] to-[#480776] h-screen w-screen   text-white   ">
         {/* <div className="bg-gradient-to-tr from-[#d4b1f4] via-[#9775f5] to-[#bf73f6] absolute z-50 w-96 h-96 rounded-full backdrop-blur-xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-lg animate-pulse opacity-90" /> */}
-        <div className="absolute top-4  lg:top-10  lg:left-44">
+        <div className="">
           {/* <form className="max-w-6xl w-screen   bg-[#36125d] flex flex-row justify-between gap-4 sm:gap-10 p-4  rounded items-center  shadow-lg ">
             <DropdownMenu>
               
@@ -126,8 +138,10 @@ export default function Home() {
 
           <Form onSendClick={onSendClick} />
           <RequestCollection />
-          <Response />
-          <ErrorScreen />
+          {/* <Response />
+          <ErrorScreen /> */}
+
+          {apiResponse ? <Response data={apiResponse} /> : <ErrorScreen />}
 
           {errorMsg && <p className="text-red-500 mt-4">{errorMsg}</p>}
 
