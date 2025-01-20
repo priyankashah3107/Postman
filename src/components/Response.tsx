@@ -5,12 +5,10 @@ import { useDataContext } from "context/DataProvider";
 
 // Define the structure of your API response
 interface APIResponseData {
-  // Add the specific properties you expect from your API
-  // This is an example - adjust according to your actual API response
   [key: string]: any; // For dynamic properties
   statusCode?: number;
   headers?: Record<string, string>;
-  body?: any;
+  body?: string | any;
 }
 
 interface ResponseProps {
@@ -20,6 +18,7 @@ interface ResponseProps {
 const Response: React.FC<ResponseProps> = ({ data }) => {
   const { setCookies } = useDataContext();
 
+  console.log("Cookie", data);
   console.log("Response cookie", data?.body);
 
   // Update cookies when response data changes

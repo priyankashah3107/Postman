@@ -41,7 +41,7 @@
 
 // export default QueryParameter;
 "use client";
-import React, { useState, useContext } from "react";
+import React from "react";
 import { useDataContext } from "context/DataProvider";
 
 // interface Row {

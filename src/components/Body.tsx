@@ -5,11 +5,11 @@ const Body: React.FC = () => {
   const { jsonText, setJsonText } = useDataContext();
   console.log("jsonText", jsonText);
 
-  const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const textarea = e.target;
-    // textarea.style.height = "auto";
-    // textarea.style.height = `${textarea.scrollHeight}px`;
-  };
+  // const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  //   // const textarea = e.target;
+  //   // textarea.style.height = "auto";
+  //   // textarea.style.height = `${textarea.scrollHeight}px`;
+  // };
 
   const onValueChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setJsonText(e.target.value);
@@ -36,7 +36,7 @@ const Body: React.FC = () => {
             placeholder="Enter JSON Data"
             className=" w-full text-black p-4 border border-gray-300 rounded-md lg:h-56"
             rows={1} // Number value for rows
-            onInput={handleInput} // Dynamic resizing handler
+            // onInput={handleInput} // Dynamic resizing handler
             onChange={(e) => onValueChange(e)}
           />
         </div>

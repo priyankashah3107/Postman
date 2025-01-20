@@ -10,8 +10,9 @@ const PreRequestScript: React.FC = () => {
     try {
       // Collect console output
       const consoleOutput: string[] = [];
-      const consoleLog = (msg: any): void => {
+      const consoleLog = (msg: string): void => {
         consoleOutput.push(String(msg));
+        console.log("MSG", typeof msg);
       };
 
       // Create and execute script

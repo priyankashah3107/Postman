@@ -134,13 +134,6 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useDataContext } from "context/DataProvider";
 
-interface Cookie {
-  name: string;
-  value: string;
-  domain: string;
-  path: string;
-}
-
 const CookiePage: React.FC = () => {
   const { cookies } = useDataContext();
   console.log("Cookies from CookiePage", cookies);

@@ -138,6 +138,7 @@ const checkParams = (
   try {
     new URL(formData.url);
   } catch (e) {
+    console.log(e);
     setErrorMsg("Please provide a valid URL");
     return false;
   }
@@ -150,6 +151,7 @@ const checkParams = (
     try {
       JSON.parse(jsonText);
     } catch (e) {
+      console.log(e);
       setErrorMsg("Invalid JSON in request body");
       return false;
     }

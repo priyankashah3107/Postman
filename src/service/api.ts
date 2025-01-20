@@ -92,6 +92,7 @@ export const sendRequest = async (
       try {
         config.data = JSON.parse(body);
       } catch (e) {
+        console.log(e);
         config.data = body; // Use raw body if not JSON
       }
     }
@@ -113,6 +114,7 @@ export const sendRequest = async (
       }
     } catch (e) {
       // Keep original response if parsing fails
+      console.log(e);
     }
 
     // Format success response
@@ -122,7 +124,7 @@ export const sendRequest = async (
       headers: response.headers,
       duration,
     };
-  } catch (error: any) {
+  } catch (error) {
     const duration = Date.now() - startTime;
 
     // Handle Axios errors
@@ -140,7 +142,8 @@ export const sendRequest = async (
     }
 
     // Handle other errors
-    const errorMessage = error.message || "An unexpected error occurred";
+    const typedError = error as Error;
+    const errorMessage = typedError.message || "An unexpected error occurred";
     toast.error(errorMessage);
     return {
       data: null,
